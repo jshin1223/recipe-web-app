@@ -13,7 +13,7 @@ session_start();
     <!-- Link to external CSS -->
     <link rel="stylesheet" href="/recipe-web-app/assets/css/style.css">
     <!-- Link to external JavaScript -->
-    <script src="/recipe-web-app/assets/js/scripts.js" defer></script>
+    <script src="/recipe-web-app/assets/scripts.js" defer></script>
 </head>
 <body>
     <header>

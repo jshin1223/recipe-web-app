@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Function to handle the favourite button toggle for a single recipe page
+    // Reusable function to toggle favourite status
     const handleFavouriteToggle = (favouriteBtn, userId, recipeId) => {
-        // AJAX request to toggle favourite status
         fetch('/recipe-web-app/templates/mark_favourite.php', {
             method: 'POST',
             body: JSON.stringify({ userId: userId, recipeId: recipeId }),
@@ -11,48 +10,58 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(response => response.json())
         .then(data => {
-            // If successful, update the button text based on the action
             if (data.success) {
+                const isInAccountPage = window.location.pathname.includes("account.php");
+
                 if (data.action === 'added') {
                     favouriteBtn.innerText = 'Remove from Favourites';
                 } else if (data.action === 'removed') {
-                    favouriteBtn.innerText = 'Mark as Favourite';
+                    if (isInAccountPage) {
+                        // Remove the entire table row for My Account page
+                        const row = favouriteBtn.closest('tr');
+                        if (row) row.remove();
+                    } else {
+                        favouriteBtn.innerText = 'Mark as Favourite';
+                    }
                 }
             } else {
                 alert('Something went wrong. Please try again.');
             }
+        })
+        .catch(error => {
+            console.error('Toggle favourite failed:', error);
+            alert('Failed to connect to server.');
         });
     };
 
-    // Handling for individual recipe page favourite button
-    const favouriteBtn = document.getElementById('favourite-btn');
-    if (favouriteBtn) {
-        const userId = favouriteBtn.getAttribute('data-user-id');
-        const recipeId = favouriteBtn.getAttribute('data-recipe-id');
-        
-        favouriteBtn.addEventListener('click', function () {
-            handleFavouriteToggle(favouriteBtn, userId, recipeId);
-        });
-    }
+    // Bind all favourite buttons
+    document.querySelectorAll('.favourite-btn').forEach(button => {
+        const userId = button.dataset.userId;
+        const recipeId = button.dataset.recipeId;
 
-    // Handling for all favourite buttons across recipe cards (e.g., on the homepage or search page)
-    const favouriteBtns = document.querySelectorAll('.favourite-btn');
-    favouriteBtns.forEach(favouriteBtn => {
-        const userId = favouriteBtn.getAttribute('data-user-id');
-        const recipeId = favouriteBtn.getAttribute('data-recipe-id');
-        
-        favouriteBtn.addEventListener('click', function () {
-            handleFavouriteToggle(favouriteBtn, userId, recipeId);
-        });
+        if (!userId || !recipeId) {
+            console.warn('Missing data attributes on favourite button');
+            return;
+        }
+
+        // Prevent duplicate listener
+        button.removeEventListener('click', button._favouriteListener);
+
+        // Assign event
+        button._favouriteListener = function () {
+            handleFavouriteToggle(button, userId, recipeId);
+        };
+
+        button.addEventListener('click', button._favouriteListener);
     });
 
-    // Handle the search form validation (for Search Recipe page)
+    // Search form validation
     const searchForm = document.getElementById('search-form');
     if (searchForm) {
         searchForm.addEventListener('submit', function (e) {
             const query = document.getElementById('query');
-            if (query.value.trim() === '') {
-                e.preventDefault(); // Prevent form submission
+            if (query && query.value.trim() === '') {
+                e.preventDefault();
                 alert('Please enter a search term.');
             }
         });
