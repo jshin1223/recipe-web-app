@@ -1,0 +1,128 @@
+/* Reset default spacing and box sizing */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Basic page styling */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333;
+    padding: 20px;
+}
+
+/* Header styling */
+header {
+    background: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+/* Navigation menu */
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+}
+nav ul li {
+    margin: 0 15px;
+}
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Main content container */
+.container {
+    max-width: 1000px;
+    margin: 20px auto;
+    background: #fff;
+    padding: 20px;
+}
+
+/* Footer styling */
+footer {
+    text-align: center;
+    padding: 10px 0;
+    background: #333;
+    color: #fff;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Responsive design for mobile */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+    }
+
+    .container {
+        padding: 10px;
+    }
+}
+
+/* Search button styling */
+#search-form {
+    margin-bottom: 40px; /* Space between the search form and other elements */
+}
+
+#search-form button {
+    background-color: #4CAF50;
+    color: white;
+    margin-top: 10px;
+    padding: 10px 20px;
+}
+
+/* Styling for the List All Recipes button */
+.list-recipes-btn {
+    margin-top: 40px; /* Adjust the space between the two buttons */
+}
+
+.list-recipes-btn button {
+    background-color: #2196F3; /* Blue color for the button */
+    color: white;
+    padding: 10px 20px;
+}
+
+/* Adding some space between the buttons */
+form div button {
+    margin-top: 20px;
+}
+
+/* Style for the favourite button */
+.favourite-btn {
+    background-color: #ff0;  /* Yellow when not favourite */
+    border: none;
+    padding: 5px 10px;       /* Smaller padding for a more compact button */
+    cursor: pointer;
+    font-size: 14px;         /* Smaller font size to match recipe title */
+    margin-top: 5px;         /* Adjusted margin for better spacing */
+    display: inline-block;
+    text-align: center;      /* Center align the text inside the button */
+    border-radius: 4px;      /* Optional: Rounded corners for better aesthetics */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transitions */
+}
+
+/* Active state for the button (when the recipe is a favourite) */
+.favourite-btn.active {
+    background-color: #e74c3c;  /* Red when active (favourite) */
+    color: white;
+}
+
+/* Optional: Hover effect to make the button more interactive */
+.favourite-btn:hover {
+    background-color: #f1c40f; /* Lighter yellow for hover */
+    color: #333;                /* Darker text on hover */
+}
+
+/* If you need different sizes or styles specifically for My Account page */
+.my-account .favourite-btn {
+    font-size: 14px;  /* Ensure the font size is consistent with recipe title */
+    padding: 5px 10px; /* Adjust padding further if needed */
+    margin: 0;          /* Remove extra margin if necessary */
+}
