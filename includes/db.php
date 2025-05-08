@@ -1,23 +1,8 @@
 <?php
-// includes/db.php - Handles database connection using PDO
+// includes/db.php – Ensures database is ready and connects to it
 
-// Define database configuration settings
-$host     = 'localhost'; // Hostname where the database server runs
-$dbname   = 'recipe_app'; // Name of the database
-$username = 'root'; // Database username (default for XAMPP)
-$password = ''; // No password by default in XAMPP
+// Step 1: Create the database and tables if they don't exist
+require_once __DIR__ . '/../init.php';
 
-try {
-    // Create a PDO data source name string
-    $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";
-
-    // Create a new PDO instance for database connection
-    $pdo = new PDO($dsn, $username, $password);
-
-    // Enable exception mode for better error reporting
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    // If the connection fails, show a descriptive error
-    die("Database connection failed: " . $e->getMessage());
-}
-?>
+// Step 2: Establish the connection
+require_once __DIR__ . '/connection.php';
