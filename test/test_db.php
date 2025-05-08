@@ -1,22 +1,26 @@
 <?php
-// test_db.php – Basic MySQL connection test
+// test/test_db.php – Verifies database setup and connection
 
-// Update these values if different
-$host     = 'localhost';          // or 'localhost:3307' if using alternate port
-$dbname   = 'recipe_app';         // your actual database name
-$username = 'root';               // or your MySQL user
-$password = ''; // the password you set for root
+require_once __DIR__ . '/../includes/db.php';
+
+echo "<h2>✅ Database Connection Test</h2>";
 
 try {
-    // Set up DSN and create PDO connection
-    $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";
-    $pdo = new PDO($dsn, $username, $password);
-    
-    // Set error mode to exception
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // Simple test query: list tables
+    $stmt = $pdo->query("SHOW TABLES");
+    $tables = $stmt->fetchAll(PDO::FETCH_COLUMN);
 
-    echo "<h2 style='color:green;'>✅ Success! Connected to the database.</h2>";
+    if (empty($tables)) {
+        echo "<p style='color:red;'>⚠️ No tables found in the database.</p>";
+    } else {
+        echo "<p style='color:green;'>✅ Connected to 'recipe_app' and found the following tables:</p>";
+        echo "<ul>";
+        foreach ($tables as $table) {
+            echo "<li>$table</li>";
+        }
+        echo "</ul>";
+    }
 } catch (PDOException $e) {
-    echo "<h2 style='color:red;'>❌ Connection failed:</h2> " . $e->getMessage();
+    echo "<p style='color:red;'>❌ Query failed: " . $e->getMessage() . "</p>";
 }
 ?>
