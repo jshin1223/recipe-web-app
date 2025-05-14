@@ -55,15 +55,42 @@ document.addEventListener('DOMContentLoaded', function () {
         button.addEventListener('click', button._favouriteListener);
     });
 
-    // Search form validation
     const searchForm = document.getElementById('search-form');
     if (searchForm) {
         searchForm.addEventListener('submit', function (e) {
-            const query = document.getElementById('query');
-            if (query && query.value.trim() === '') {
+            const query = document.getElementById('query')?.value.trim();
+            const prep = document.getElementById('prep_time_range')?.value;
+            const cook = document.getElementById('cook_time_range')?.value;
+            const serves = document.getElementById('serves_min')?.value;
+            const diet = document.getElementById('dietary')?.value;
+            const sort = document.getElementById('sort')?.value;
+
+            const anyInput = query || prep || cook || serves || diet || sort;
+
+            if (!anyInput) {
                 e.preventDefault();
-                alert('Please enter a search term.');
+                alert('Please enter a search term or select at least one filter.');
             }
         });
     }
+
+    // Theme switcher logic
+    function setTheme(mode) {
+        document.body.classList.remove('theme-light', 'theme-dark', 'theme-high-contrast');
+        document.body.classList.add(`theme-${mode}`);
+        localStorage.setItem('preferredTheme', mode);
+    }
+
+    // Apply saved theme on load
+    const savedTheme = localStorage.getItem('preferredTheme') || 'light';
+    setTheme(savedTheme);
+
+    // Attach click events to theme buttons
+    document.querySelectorAll('button[data-theme]').forEach(button => {
+        button.addEventListener('click', () => {
+            const mode = button.getAttribute('data-theme');
+            setTheme(mode);
+        });
+    });
+
 });

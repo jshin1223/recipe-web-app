@@ -1,7 +1,5 @@
 <?php
 // includes/header.php - Displays HTML header and navigation bar
-
-// Start the session to track user login status
 session_start();
 ?>
 <!DOCTYPE html>
@@ -10,17 +8,14 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recipe Web App</title>
-    <!-- Link to external CSS -->
     <link rel="stylesheet" href="/recipe-web-app/assets/css/style.css">
-    <!-- Link to external JavaScript -->
-    <script src="/recipe-web-app/assets/scripts.js" defer></script>
+    <script src="/recipe-web-app/assets/js/scripts.js" defer></script>
 </head>
 <body>
     <header>
         <h1>Recipe Web App</h1>
         <nav>
             <ul>
-                <!-- Navigation Links -->
                 <li><a href="/recipe-web-app/index.php">Home</a></li>
                 <li><a href="/recipe-web-app/templates/search.php">Search Recipes</a></li>
                 <?php if(isset($_SESSION['user_id'])): ?>
@@ -32,6 +27,11 @@ session_start();
                 <?php endif; ?>
             </ul>
         </nav>
+        <div style="margin-top: 10px; text-align: center;">
+            <button data-theme="light">Light Mode</button>
+            <button data-theme="dark">Dark Mode</button>
+            <button data-theme="high-contrast">High Contrast</button>
+        </div>
+
     </header>
-    <!-- Start of main page container -->
     <div class="container">

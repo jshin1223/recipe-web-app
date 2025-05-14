@@ -126,3 +126,76 @@ form div button {
     padding: 5px 10px; /* Adjust padding further if needed */
     margin: 0;          /* Remove extra margin if necessary */
 }
+
+/* Light Mode (default) */
+body.theme-light {
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Light Mode (explicitly) */
+body.theme-light header,
+body.theme-light footer {
+    background: #f0f0f0;  /* Light grey */
+    color: #333;          /* Dark text for contrast */
+}
+
+/* Optional: adjust links inside header/footer for visibility */
+body.theme-light header a,
+body.theme-light footer a {
+    color: #007acc;  /* Calm blue */
+}
+
+body.theme-light header a:hover,
+body.theme-light footer a:hover {
+    text-decoration: underline;
+}
+
+
+/* Dark Mode */
+body.theme-dark {
+    background-color: #1e1e1e;
+    color: #f0f0f0;
+}
+
+body.theme-dark header,
+body.theme-dark footer {
+    background: #111;
+    color: #fff;
+}
+
+body.theme-dark .container {
+    background: #2c2c2c;
+}
+
+/* Improve link visibility in dark mode */
+body.theme-dark a:link,
+body.theme-dark a:visited {
+    color: #4FC3F7; /* Light blue for readability */
+}
+
+body.theme-dark a:hover,
+body.theme-dark a:focus {
+    color: #81D4FA; /* Lighter blue on hover/focus */
+    text-decoration: underline;
+}
+
+/* High Contrast Mode */
+body.theme-high-contrast {
+    background-color: #000;
+    color: #FFD700;
+}
+body.theme-high-contrast header,
+body.theme-high-contrast footer {
+    background: #000;
+    color: #FFD700;
+}
+body.theme-high-contrast .container {
+    background: #000;
+    border: 2px solid #FFD700;
+}
+body.theme-high-contrast a {
+    color: #00FFFF;
+    font-weight: bold;
+    text-decoration: underline;
+}
