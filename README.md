@@ -93,7 +93,35 @@ Download and install from:
 * Create a folder named: `recipe-web-app`
 * Copy all project files into this folder
 
-### 4. Start Apache and MySQL
+### 4. 🔐 Set or Update MySQL Root Password
+
+By default, XAMPP sets the MySQL root password to blank (`''`). If you set a custom password, you'll need to update it both in your **code** and in **XAMPP/phpMyAdmin**.
+
+#### ✅ Update in the Code
+
+Edit the file: recipe-web-app/includes/connection.php
+
+Find this line:
+```php
+$password = '';
+```
+Change it to your custom password:
+```php
+$password = 'your_custom_password';
+```
+
+✅ Set Password in XAMPP (phpMyAdmin)
+1. Open http://localhost/phpmyadmin/
+2. Go to the User Accounts tab
+3. Locate the row for root@localhost
+4. Click Edit Privileges
+5. Scroll to the Change Password section
+6. Enter your new password and confirm it
+7. Click Go
+
+⚠️ If the password in your PHP code does not match the one set in phpMyAdmin, the app won’t be able to connect to the database.
+
+### 5. Start Apache and MySQL
 
 * Launch the **XAMPP Control Panel**
 * Start the following services:
@@ -101,7 +129,7 @@ Download and install from:
   * ✅ Apache
   * ✅ MySQL
 
-### 5. Launch the App
+### 6. Launch the App
 
 * Visit: `http://localhost/recipe-web-app/`
 * On first run, the app will:
@@ -111,7 +139,7 @@ Download and install from:
 
 **Note:** You can continue adding more seed data in the `recipe_app_dump.sql` file. It will be automatically reloaded if new data is not already present.
 
-### 6. (Optional) Verify Setup
+### 7. (Optional) Verify Setup
 
 Open the test script:
 🔗 `http://localhost/recipe-web-app/test/test_db.php`
