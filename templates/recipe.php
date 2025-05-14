@@ -4,27 +4,22 @@ require_once '../includes/db.php';
 
 $recipeId = isset($_GET['id']) ? intval($_GET['id']) : 0;
 if ($recipeId > 0) {
-    // Retrieve recipe details from the database
     $stmt = $pdo->prepare("SELECT * FROM recipes WHERE id = ?");
     $stmt->execute([$recipeId]);
     $recipe = $stmt->fetch(PDO::FETCH_ASSOC);
-    
-    // Retrieve ingredients for this recipe
+
     $stmtIngredients = $pdo->prepare("SELECT * FROM recipe_ingredients WHERE recipe_id = ?");
     $stmtIngredients->execute([$recipeId]);
     $ingredients = $stmtIngredients->fetchAll(PDO::FETCH_ASSOC);
-    
-    // Retrieve preparation steps for this recipe
+
     $stmtSteps = $pdo->prepare("SELECT * FROM recipe_steps WHERE recipe_id = ?");
     $stmtSteps->execute([$recipeId]);
     $steps = $stmtSteps->fetchAll(PDO::FETCH_ASSOC);
-    
-    // Retrieve ratings for this recipe
+
     $stmtRatings = $pdo->prepare("SELECT AVG(difficulty) AS avg_difficulty, AVG(aesthetics) AS avg_aesthetics, AVG(taste) AS avg_taste, AVG(overall) AS avg_overall FROM ratings WHERE recipe_id = ?");
     $stmtRatings->execute([$recipeId]);
     $ratings = $stmtRatings->fetch(PDO::FETCH_ASSOC);
 
-    // Check if the current user has this recipe marked as a favourite
     if (isset($_SESSION['user_id'])) {
         $userId = $_SESSION['user_id'];
         $stmtFavourite = $pdo->prepare("SELECT * FROM favourites WHERE user_id = ? AND recipe_id = ?");
@@ -36,10 +31,8 @@ if ($recipeId > 0) {
 
 <div class="container">
     <?php if ($recipe): ?>
-        <!-- Title Section -->
         <h2><?php echo htmlspecialchars($recipe['title']); ?></h2>
 
-        <!-- Image Section -->
         <?php if (!empty($recipe['image_url'])): ?>
             <div style="text-align:center; margin-bottom: 1rem;">
                 <img src="<?php echo htmlspecialchars($recipe['image_url']); ?>" alt="Image of <?php echo htmlspecialchars($recipe['title']); ?>" style="max-width:100%; height:auto; border-radius: 8px;">
@@ -48,9 +41,28 @@ if ($recipeId > 0) {
 
         <p class="description"><?php echo nl2br(htmlspecialchars($recipe['description'])); ?></p>
 
+        <!-- Summary Info Section -->
+        <table class="recipe-table" style="margin-top: 1rem;">
+            <tr>
+                <td><strong>Prep Time:</strong></td>
+                <td><?php echo htmlspecialchars($recipe['prep_time']); ?></td>
+            </tr>
+            <tr>
+                <td><strong>Cook Time:</strong></td>
+                <td><?php echo htmlspecialchars($recipe['cook_time']); ?></td>
+            </tr>
+            <tr>
+                <td><strong>Serves:</strong></td>
+                <td><?php echo htmlspecialchars($recipe['serve']); ?></td>
+            </tr>
+            <tr>
+                <td><strong>Dietary:</strong></td>
+                <td><?php echo htmlspecialchars($recipe['dietary']); ?></td>
+            </tr>
+        </table>
+
         <hr>
 
-        <!-- Ingredients Section -->
         <h3>Ingredients</h3>
         <table class="recipe-table">
             <thead>
@@ -71,7 +83,6 @@ if ($recipeId > 0) {
 
         <hr>
 
-        <!-- Preparation Steps Section -->
         <h3>Preparation Steps</h3>
         <ol>
             <?php foreach ($steps as $step): ?>
@@ -79,9 +90,15 @@ if ($recipeId > 0) {
             <?php endforeach; ?>
         </ol>
 
+        <!-- Recipe Tips -->
+        <?php if (!empty($recipe['recipe_tips'])): ?>
+            <hr>
+            <h3>Recipe Tips</h3>
+            <p><?php echo nl2br(htmlspecialchars($recipe['recipe_tips'])); ?></p>
+        <?php endif; ?>
+
         <hr>
 
-        <!-- Ratings Section -->
         <h3>Average Ratings</h3>
         <table class="recipe-table">
             <tr>
@@ -104,7 +121,6 @@ if ($recipeId > 0) {
 
         <hr>
 
-        <!-- Rating Submission Section -->
         <h3>Rate this Recipe</h3>
         <form action="/recipe-web-app/templates/rate_recipe.php" method="post">
             <input type="hidden" name="recipe_id" value="<?php echo $recipeId; ?>">
@@ -125,7 +141,6 @@ if ($recipeId > 0) {
 
         <hr>
 
-        <!-- Favourite Button -->
         <?php if (isset($userId)): ?>
             <button id="favourite-btn" class="favourite-btn" data-recipe-id="<?php echo $recipeId; ?>" data-user-id="<?php echo $_SESSION['user_id']; ?>">
                 <?php echo $isFavourite ? 'Remove from Favourites' : 'Mark as Favourite'; ?>
@@ -134,7 +149,6 @@ if ($recipeId > 0) {
 
         <hr>
 
-        <!-- Source URL Section -->
         <?php if (!empty($recipe['source_url'])): ?>
             <p><strong>Source:</strong> <a href="<?php echo htmlspecialchars($recipe['source_url']); ?>" target="_blank"><?php echo htmlspecialchars($recipe['source_url']); ?></a></p>
         <?php endif; ?>
@@ -142,11 +156,9 @@ if ($recipeId > 0) {
     <?php else: ?>
         <p>Recipe not found.</p>
     <?php endif; ?>
-
 </div>
 
 <script>
-// JavaScript for handling the favourite button
 document.addEventListener('DOMContentLoaded', function () {
     const favouriteBtn = document.getElementById('favourite-btn');
     if (favouriteBtn) {
@@ -155,7 +167,6 @@ document.addEventListener('DOMContentLoaded', function () {
             const userId = favouriteBtn.getAttribute('data-user-id');
             const isFavourite = favouriteBtn.innerText === 'Remove from Favourites';
 
-            // AJAX request to toggle favourite status
             fetch('/recipe-web-app/templates/mark_favourite.php', {
                 method: 'POST',
                 body: JSON.stringify({ userId: userId, recipeId: recipeId }),
@@ -165,7 +176,6 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .then(response => response.json())
             .then(data => {
-                // Update button text based on favourite status
                 if (data.success) {
                     favouriteBtn.innerText = isFavourite ? 'Mark as Favourite' : 'Remove from Favourites';
                 } else {

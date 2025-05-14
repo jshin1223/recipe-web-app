@@ -34,6 +34,10 @@ ALTER TABLE recipes
 ADD COLUMN image_url VARCHAR(255) DEFAULT NULL,
 ADD COLUMN source_url VARCHAR(255) DEFAULT NULL;
 
+ALTER TABLE recipes
+ADD COLUMN prep_time_min INT,
+ADD COLUMN cook_time_min INT,
+ADD COLUMN serves_min INT;
 
 -- Create recipe_ingredients table
 CREATE TABLE IF NOT EXISTS recipe_ingredients (
@@ -372,6 +376,7 @@ INSERT INTO recipe_steps (recipe_id, step_number, instruction, time_minutes) VAL
 INSERT INTO ratings (user_id, recipe_id, difficulty, aesthetics, taste, overall) VALUES
 (2, @recipe_id, 3, 4, 4, 4);  -- Bob rated Mushroom Doner
 
+-- Insert image_url and source_url data for each recipe
 UPDATE recipes SET image_url = '/recipe-web-app/assets/images/spaghetti.jpg', source_url = 'https://www.bbc.co.uk/food/recipes/spaghettibolognese_67868' WHERE id = 1;
 UPDATE recipes SET image_url = '/recipe-web-app/assets/images/vegan_american_pancakes.jpg', source_url = 'https://www.bbc.co.uk/food/recipes/vegan_american_pancakes_76094' WHERE id = 2;
 UPDATE recipes SET image_url = '/recipe-web-app/assets/images/healthy_pizza.jpg', source_url = 'https://www.bbc.co.uk/food/recipes/healthy_pizza_55143' WHERE id = 3;
@@ -381,4 +386,59 @@ UPDATE recipes SET image_url = '/recipe-web-app/assets/images/plumclafoutis.jpg'
 UPDATE recipes SET image_url = '/recipe-web-app/assets/images/mango_pie.jpg', source_url = 'https://www.bbc.co.uk/food/recipes/mango_pie_18053' WHERE id = 7;
 UPDATE recipes SET image_url = '/recipe-web-app/assets/images/mushroom_doner.jpg', source_url = 'https://www.bbc.co.uk/food/recipes/mushroom_doner_22676' WHERE id = 8;
 
+-- add additional data for recipes
+-- Spaghetti Bolognese (ID 1)
+UPDATE recipes SET 
+  prep_time_min = 30,
+  cook_time_min = 120,
+  serves_min = 6
+WHERE id = 1;
 
+-- Vegan Pancakes (ID 2)
+UPDATE recipes SET 
+  prep_time_min = 30,
+  cook_time_min = 30,
+  serves_min = 2
+WHERE id = 2;
+
+-- Healthy Pizza (ID 3)
+UPDATE recipes SET 
+  prep_time_min = 30,
+  cook_time_min = 30,
+  serves_min = 2
+WHERE id = 3;
+
+-- Easy Lamb Biryani (ID 4)
+UPDATE recipes SET 
+  prep_time_min = 720,  -- overnight ≈ 12 hours
+  cook_time_min = 120,
+  serves_min = 6
+WHERE id = 4;
+
+-- Couscous Salad (ID 5)
+UPDATE recipes SET 
+  prep_time_min = 30,
+  cook_time_min = 10,
+  serves_min = 6
+WHERE id = 5;
+
+-- Plum Clafoutis (ID 6)
+UPDATE recipes SET 
+  prep_time_min = 30,
+  cook_time_min = 60,
+  serves_min = 4
+WHERE id = 6;
+
+-- Mango Pie (ID 7)
+UPDATE recipes SET 
+  prep_time_min = 60,
+  cook_time_min = 60,
+  serves_min = 16
+WHERE id = 7;
+
+-- Mushroom Doner (ID 8)
+UPDATE recipes SET 
+  prep_time_min = 30,
+  cook_time_min = 30,
+  serves_min = 4
+WHERE id = 8;
