@@ -8,13 +8,21 @@ $error = null;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name  = trim($_POST['name']);
     $email = trim($_POST['email']);
-    $password = trim($_POST['password']); // Store as plain text
+    $password = trim($_POST['password']); // Store as plain text or hash it in production
 
-    $stmt = $pdo->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
-    if ($stmt->execute([$name, $email, $password])) {
-        $success = "Registration successful! You can now <a href='login.php'>log in</a>.";
+    // Check if email already exists
+    $stmt = $pdo->prepare("SELECT id FROM users WHERE email = ?");
+    $stmt->execute([$email]);
+
+    if ($stmt->fetch()) {
+        $error = "⚠️ This email is already registered. Please use a different one.";
     } else {
-        $error = "Registration failed. Please try again.";
+        $stmt = $pdo->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
+        if ($stmt->execute([$name, $email, $password])) {
+            $success = "✅ Registration successful! You can now <a href='login.php'>log in</a>.";
+        } else {
+            $error = "❌ Registration failed. Please try again.";
+        }
     }
 }
 ?>
@@ -22,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div>
     <h2>Register</h2>
     <?php if ($error): ?>
-        <p style='color:red;'><?= $error ?></p>
+        <p style='color:red;'><?= htmlspecialchars($error) ?></p>
     <?php elseif ($success): ?>
         <p style='color:green;'><?= $success ?></p>
     <?php endif; ?>

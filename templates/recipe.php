@@ -158,35 +158,6 @@ if ($recipeId > 0) {
     <?php endif; ?>
 </div>
 
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const favouriteBtn = document.getElementById('favourite-btn');
-    if (favouriteBtn) {
-        favouriteBtn.addEventListener('click', function () {
-            const recipeId = favouriteBtn.getAttribute('data-recipe-id');
-            const userId = favouriteBtn.getAttribute('data-user-id');
-            const isFavourite = favouriteBtn.innerText === 'Remove from Favourites';
-
-            fetch('/recipe-web-app/templates/mark_favourite.php', {
-                method: 'POST',
-                body: JSON.stringify({ userId: userId, recipeId: recipeId }),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    favouriteBtn.innerText = isFavourite ? 'Mark as Favourite' : 'Remove from Favourites';
-                } else {
-                    alert('Something went wrong. Please try again.');
-                }
-            });
-        });
-    }
-});
-</script>
-
 <?php
 require_once '../includes/footer.php';
 ?>
