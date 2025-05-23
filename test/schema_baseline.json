@@ -1,0 +1,57 @@
+{
+    "favourites": [
+        "id",
+        "user_id",
+        "recipe_id"
+    ],
+    "ratings": [
+        "id",
+        "user_id",
+        "recipe_id",
+        "difficulty",
+        "aesthetics",
+        "taste",
+        "overall",
+        "created_at"
+    ],
+    "recipe_ingredients": [
+        "id",
+        "recipe_id",
+        "ingredient",
+        "quantity"
+    ],
+    "recipe_steps": [
+        "id",
+        "recipe_id",
+        "step_number",
+        "instruction",
+        "time_minutes"
+    ],
+    "recipes": [
+        "id",
+        "title",
+        "description",
+        "prep_time",
+        "cook_time",
+        "serve",
+        "dietary",
+        "recipe_tips",
+        "image_url",
+        "source_url",
+        "prep_time_min",
+        "cook_time_min",
+        "serves_min",
+        "audio_filename",
+        "created_by",
+        "created_at"
+    ],
+    "users": [
+        "id",
+        "name",
+        "email",
+        "password",
+        "phone",
+        "country",
+        "created_at"
+    ]
+}

@@ -1,0 +1,354 @@
+/* Reset default spacing and box sizing */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Basic page styling */
+body {
+    font-family: Arial, sans-serif;
+    font-size: 18px; /* ✅ Set default font size */
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333;
+    padding: 20px;
+}
+
+/* Header styling */
+header {
+    background: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+/* Navigation menu */
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+}
+nav ul li {
+    margin: 0 15px;
+}
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Main content container */
+.container {
+    max-width: 1000px;
+    margin: 20px auto;
+    background: #fff;
+    padding: 20px;
+    padding-bottom: 20px; /* ✅ Add this line */
+}
+
+/* Footer styling */
+footer {
+    text-align: center;
+    padding: 10px 0;
+    background: #333;
+    color: #fff;
+    position: relative;  /* Changed from fixed to relative */
+    width: 100%;
+    margin-top: 50px;     /* Optional: adds space between content and footer */
+}
+
+
+/* Responsive design for mobile */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+    }
+
+    .container {
+        padding: 10px;
+    }
+}
+
+/* Search button styling */
+#search-form {
+    margin-bottom: 40px;
+}
+#search-form button {
+    background-color: #4CAF50;
+    color: white;
+    margin-top: 10px;
+    padding: 10px 20px;
+}
+
+/* Styling for the List All Recipes button */
+.list-recipes-btn {
+    margin-top: 40px;
+}
+.list-recipes-btn button {
+    background-color: #2196F3;
+    color: white;
+    padding: 10px 20px;
+}
+
+/* Adding some space between the buttons */
+form div button {
+    margin-top: 20px;
+}
+
+/* Style for the favourite button */
+.favourite-btn {
+    background-color: #ff0;
+    border: none;
+    padding: 0.4em 0.8em;
+    cursor: pointer;
+    font-size: 1em;
+    margin-top: 0.5em;
+    display: inline-block;
+    text-align: center;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.favourite-btn.active {
+    background-color: #e74c3c;
+    color: white;
+}
+.favourite-btn:hover {
+    background-color: #f1c40f;
+    color: #333;
+}
+.my-account .favourite-btn {
+    font-size: 14px;
+    padding: 5px 10px;
+    margin: 0;
+}
+
+/* Light Mode */
+body.theme-light {
+    background-color: #f4f4f4;
+    color: #333;
+}
+body.theme-light header,
+body.theme-light footer {
+    background: #f0f0f0;
+    color: #333;
+}
+body.theme-light header a,
+body.theme-light footer a {
+    color: #007acc;
+}
+body.theme-light header a:hover,
+body.theme-light footer a:hover {
+    text-decoration: underline;
+}
+
+/* Dark Mode */
+body.theme-dark {
+    background-color: #1e1e1e;
+    color: #f0f0f0;
+}
+body.theme-dark header,
+body.theme-dark footer {
+    background: #111;
+    color: #fff;
+}
+body.theme-dark .container {
+    background: #2c2c2c;
+}
+body.theme-dark a:link,
+body.theme-dark a:visited {
+    color: #4FC3F7;
+}
+body.theme-dark a:hover,
+body.theme-dark a:focus {
+    color: #81D4FA;
+    text-decoration: underline;
+}
+
+/* High Contrast Mode */
+body.theme-high-contrast {
+    background-color: #000;
+    color: #FFD700;
+}
+body.theme-high-contrast header,
+body.theme-high-contrast footer {
+    background: #000;
+    color: #FFD700;
+}
+body.theme-high-contrast .container {
+    background: #000;
+    border: 2px solid #FFD700;
+}
+body.theme-high-contrast a {
+    color: #00FFFF;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+/* Font size themes */
+body.font-small {
+    font-size: 14px;  /* A */
+}
+body.font-medium {
+    font-size: 18px;  /* A+ */
+}
+body.font-large {
+    font-size: 22px;  /* A++ */
+}
+
+/* High contrast button */
+.high-contrast-btn {
+    border: 2px solid yellow !important;
+    color: yellow !important;
+}
+
+/* Font size toggle buttons */
+.font-size-btn {
+    font-weight: bold;
+    min-width: 36px;
+    margin: 0 2px;
+    border-radius: 4px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+body.theme-light .font-size-btn {
+    background-color: #eaeaea;
+    color: #333;
+    border-color: #bbb;
+}
+body.theme-dark .font-size-btn {
+    background-color: #333;
+    color: #f0f0f0;
+    border-color: #777;
+}
+body.theme-high-contrast .font-size-btn {
+    background-color: #000;
+    color: #FFD700;
+    border: 2px solid #FFD700;
+}
+.font-size-btn:hover,
+.font-size-btn:focus {
+    outline: none;
+    transform: scale(1.05);
+}
+
+/* Steps in recipes */
+.recipe-steps {
+    margin-left: 20px;
+    padding-left: 20px;
+    list-style-position: outside;
+}
+.recipe-steps li {
+    margin-bottom: 12px;
+}
+
+/* Overlay */
+.themed-overlay {
+    padding: 2rem;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.85);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+body.theme-dark .themed-overlay {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #f0f0f0;
+}
+body.theme-high-contrast .themed-overlay {
+    background-color: #000;
+    color: yellow;
+}
+
+/* Dropdown theme overrides */
+body.theme-dark .dropdown-menu {
+    background-color: #2c2c2c !important;
+    color: #fff !important;
+    border: 1px solid #555;
+}
+body.theme-dark .dropdown-menu .dropdown-item {
+    color: #f0f0f0 !important;
+}
+body.theme-dark .dropdown-menu .dropdown-item:hover {
+    background-color: #444 !important;
+    color: #fff !important;
+}
+
+/* 🧩 Ensure dropdown items follow font size toggles */
+body.font-small .dropdown-menu .dropdown-item {
+    font-size: 16px !important;
+}
+
+body.font-medium .dropdown-menu .dropdown-item {
+    font-size: 18px !important;
+}
+
+body.font-large .dropdown-menu .dropdown-item {
+    font-size: 20px !important;
+}
+
+body.font-small .dropdown-item {
+    padding: 0.25rem 1rem;
+}
+
+body.font-medium .dropdown-item {
+    padding: 0.4rem 1.2rem;
+}
+
+body.font-large .dropdown-item {
+    padding: 0.5rem 1.4rem;
+}
+
+body.theme-high-contrast .dropdown-menu {
+    background-color: #000 !important;
+    color: #FFD700 !important;
+    border: 2px solid #FFD700;
+}
+body.theme-high-contrast .dropdown-menu .dropdown-item {
+    color: #FFD700 !important;
+    font-weight: bold;
+}
+body.theme-high-contrast .dropdown-menu .dropdown-item:hover {
+    background-color: #222 !important;
+    color: #00FFFF !important;
+}
+
+/* Font responsive buttons */
+body.font-small .register-btn {
+    font-size: 1.0rem;
+    padding: 0.4rem 1rem;
+}
+body.font-medium .register-btn {
+    font-size: 1.05rem;
+    padding: 0.5rem 1.2rem;
+}
+body.font-large .register-btn {
+    font-size: 1.2rem;
+    padding: 0.6rem 1.5rem;
+}
+body.font-small .login-btn {
+    font-size: 1.0rem;
+    padding: 0.4rem 1rem;
+}
+body.font-medium .login-btn {
+    font-size: 1.05rem;
+    padding: 0.5rem 1.2rem;
+}
+body.font-large .login-btn {
+    font-size: 1.2rem;
+    padding: 0.6rem 1.5rem;
+}
+
+/* ✅ Force dropdown menu items to scale with font size */
+.dropdown-item {
+    font-size: inherit !important;
+}
+body.font-small .dropdown-menu .dropdown-item,
+body.font-small .dropdown-item {
+    font-size: 14px !important;
+}
+body.font-medium .dropdown-menu .dropdown-item,
+body.font-medium .dropdown-item {
+    font-size: 18px !important;
+}
+body.font-large .dropdown-menu .dropdown-item,
+body.font-large .dropdown-item {
+    font-size: 20px !important;
+}
