@@ -52,12 +52,17 @@ function googleTranslateElementInit() {
     <div class="container-fluid">
         <div class="row">
 
-            <!-- Left Column: Logo and Title -->
-            <div class="col-sm">
-                <a href="http://localhost/recipe-web-app/index.php">
-                    <img id="theme-logo" src="/recipe-web-app/assets/images/title_light.png" alt="Cursive fonts">
-                </a>
-            </div>
+        <!-- Left Column: Logo and Title -->
+        <div class="col-sm">
+            <a href="/recipe-web-app/index.php">
+                <img 
+                    id="theme-logo" 
+                    src="/recipe-web-app/assets/images/title_light.png" 
+                    alt="Cursive fonts"
+                    style="max-height: 60px;"
+                >
+            </a>
+        </div>
 
             <!-- Middle Column: Navigation Links -->
             <div class="col-sm">
